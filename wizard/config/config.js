@@ -3,7 +3,7 @@ export default {
 
     // 'wizardUriBase': 'http://localhost:8080/wizard/',
     //wizardUriBase: 'https://mypurecloud.github.io/purecloud-premium-app/wizard/',
-	wizardUriBase: 'http://localhost/wizard/',
+	wizardUriBase: 'https://pci-pal.github.io/genesys-cloud-premium/wizard/',
 
 
     // The actual URL of the landing page of your web app.
