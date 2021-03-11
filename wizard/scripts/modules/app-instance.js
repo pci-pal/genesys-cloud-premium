@@ -112,19 +112,7 @@ function configure(logFunc, installedData, userId){
                                         installedData.group[groupName].id)
                                     .filter(g => g != undefined)
                 },
-                advanced: {
-					    "lifecycle": {
-							"ephemeral": false,
-							"hooks": {
-							"stop": true,
-							"blur": true,
-							"focus": true,
-							"bootstrap": true
-							}
-						},
-							"monochromicIcon": {
-								"vector": "https://pci-pal.github.io/genesys-cloud-premium/PCIPal_Logo-lg_Main-blue.svg"
-							},
+                advanced: {},
                 notes: '',
                 credentials: {}
             }
