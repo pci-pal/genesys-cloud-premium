@@ -20,7 +20,7 @@ export default {
 
     //appName: 'premium-app-example',
 
-	appName: 'embedded-client-app-interaction-widget ',
+	appName: 'embedded-client-app-interaction-widget',
 
     // Default Values for fail-safe/testing. Shouldn't have to be changed since the app
     // must be able to determine the environment from the query parameter 
@@ -42,20 +42,20 @@ export default {
 
     // These are the Genesys Cloud items that will be added and provisioned by the wizard
     provisioningInfo: {
-        'role': [
-            {
-                'name': 'Role',
-                'description': 'Generated role for access to the app.',
-                'permissionPolicies': [
-                    {
-                        'domain': 'integration',
-                        'entityName': 'examplePremiumApp',
-                        'actionSet': ['*'],
-                        'allowConditions': false
-                    }
-                ]
-            }
-        ],
+        // 'role': [
+            // {
+                // 'name': 'Role',
+                // 'description': 'Generated role for access to the app.',
+                // 'permissionPolicies': [
+                    // {
+                        // 'domain': 'integration',
+                        // 'entityName': 'examplePremiumApp',
+                        // 'actionSet': ['*'],
+                        // 'allowConditions': false
+                    // }
+                // ]
+            // }
+        // ],
         'group': [
             // {
                 // 'name': 'Supervisors',
