@@ -44,20 +44,20 @@ export default {
 
     // These are the Genesys Cloud items that will be added and provisioned by the wizard
     provisioningInfo: {
-        // 'role': [
-            // {
-                // 'name': 'Role',
-                // 'description': 'Generated role for access to the app.',
-                // 'permissionPolicies': [
-                    // {
-                        // 'domain': 'integration',
-                        // 'entityName': 'examplePremiumApp',
-                        // 'actionSet': ['*'],
-                        // 'allowConditions': false
-                    // }
-                // ]
-            // }
-        // ],
+         'role': [
+             {
+                 'name': 'Role',
+                 'description': 'Generated role for access to the app.',
+                 'permissionPolicies': [
+                     {
+                         'domain': 'integration',
+                         'entityName': 'embedded-client-app-interaction-widget',
+                         'actionSet': ['*'],
+                         'allowConditions': false
+                     }
+                 ]
+             }
+         ],
         'group': [
             // {
                 // 'name': 'Supervisors',
