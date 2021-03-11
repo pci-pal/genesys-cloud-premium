@@ -19,10 +19,7 @@ export default {
     // NOTE: During initial development please use ‘premium-app-example’.
     //            Once your premium app is approved an integration type will be created
     //            by the Genesys Cloud product team and you can update the name at that time.
-
-    //appName: 'premium-app-example',
-
-	appName: 'embedded-client-app-interaction-widget',
+    appName: 'premium-app-example',
 
     // Default Values for fail-safe/testing. Shouldn't have to be changed since the app
     // must be able to determine the environment from the query parameter 
@@ -44,32 +41,25 @@ export default {
 
     // These are the Genesys Cloud items that will be added and provisioned by the wizard
     provisioningInfo: {
-        // 'role': [
-            // {
-                // 'name': 'Role',
-                // 'description': 'Generated role for access to the app.',
-                // 'permissionPolicies': [
-                    // {
-                        // 'domain': 'integration',
-                        // 'entityName': 'examplePremiumApp',
-                        // 'actionSet': ['*'],
-                        // 'allowConditions': false
-                    // }
-                // ]
-            // }
-        // ],
+        'role': [
+            {
+                'name': 'Role',
+                'description': 'Generated role for access to the app.',
+                'permissionPolicies': [
+                    {
+                        'domain': 'integration',
+                        'entityName': 'examplePremiumApp',
+                        'actionSet': ['*'],
+                        'allowConditions': false
+                    }
+                ]
+            }
+        ],
         'group': [
             // {
                 // 'name': 'Supervisors',
                 // 'description': 'Supervisors have the ability to watch a queue for ACD conversations.',
             // }
-			
-            {
-                'name': 'PCIPal Users',
-                'description': 'Agents that will use PCIPal to process payments.',
-            }
-
-
         ],
         'app-instance': [
             // {
@@ -78,12 +68,6 @@ export default {
                 // 'type': 'standalone',
                 // 'groups': ['Supervisors']
             // }
-			
-			{
-			    'name': 'Partner Enablement Tools',
-                'url': 'https://pci-pal.github.io/genesys-cloud-premium/wizard/index.html?language={{pcLangTag}}&environment={{pcEnvironment}}',
-                'groups': ['PCIPal Users']
-			}
         ],
         'oauth-client': [
             // {
