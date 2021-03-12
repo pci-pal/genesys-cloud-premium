@@ -65,7 +65,7 @@ export default {
             // }
 			
             {
-                'name': 'PCIPal Users',
+                'name': 'Users',
                 'description': 'Agents that will use PCIPal to process payments.',
             }
 
