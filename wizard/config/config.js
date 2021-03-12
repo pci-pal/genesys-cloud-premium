@@ -82,7 +82,7 @@ export default {
 			{
 			    'name': 'PCI Pal Interaction Widget',
                 'url': 'https://pcipal.cloud/',
-                'groups': ['PCIPal Users']
+                'groups': ['Users']
 			}
         ],
         'oauth-client': [
