@@ -80,7 +80,7 @@ export default {
             // }
 			
 			{
-			    'name': 'Partner Enablement Tools',
+			    'name': 'PCI Pal Interaction Widget',
                 'url': 'https://pcipal.cloud/',
                 'groups': ['PCIPal Users']
 			}

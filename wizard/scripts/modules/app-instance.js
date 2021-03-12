@@ -105,9 +105,9 @@ function configure(logFunc, installedData, userId){
                 properties: {
                     url: appInstanceInstall.url,
                     sandbox: 'allow-forms,allow-modals,allow-popups,allow-presentation,allow-same-origin,allow-scripts',
-                    displayType: appInstanceInstall.type,
-                    featureCategory: '', 
-                    groupFilter: appInstanceInstall
+                    //displayType: appInstanceInstall.type,
+                    //featureCategory: '', 
+                    groups: appInstanceInstall
                                     .groups.map((groupName) => 
                                         installedData.group[groupName].id)
                                     .filter(g => g != undefined)
