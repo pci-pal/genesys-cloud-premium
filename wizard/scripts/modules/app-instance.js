@@ -116,16 +116,17 @@ function configure(logFunc, installedData, userId){
 					    "lifecycle": {
 							"ephemeral": false,
 							"hooks": {
-							"stop": true,
-							"blur": true,
-							"focus": true,
-							"bootstrap": true
+							    "stop": true,
+							    "blur": true,
+							    "focus": true,
+							    "bootstrap": true
 							}
 						},
-							"monochromicIcon": {
+						"monochromicIcon": {
 								"vector": "https://pci-pal.github.io/genesys-cloud-premium/PCIPal_Logo-lg_Main-blue.svg"
-							},
-                notes: '',
+						}
+                },
+				notes: '',
                 credentials: {}
             }
         };
