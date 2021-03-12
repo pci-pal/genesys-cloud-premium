@@ -40,7 +40,7 @@ export default {
     setupPermissionsRequired: ['admin'],
 
     // To be added to names of Genesys Cloud objects created by the wizard
-    prefix: 'PREMIUM_EXAMPLE_',
+    prefix: 'PCI_Pal_',
 
     // These are the Genesys Cloud items that will be added and provisioned by the wizard
     provisioningInfo: {
