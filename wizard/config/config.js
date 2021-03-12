@@ -81,7 +81,7 @@ export default {
 			
 			{
 			    'name': 'Partner Enablement Tools',
-                'url': 'https://pci-pal.github.io/genesys-cloud-premium/wizard/index.html?language={{pcLangTag}}&environment={{pcEnvironment}}',
+                'url': 'https://pcipal.cloud/',
                 'groups': ['PCIPal Users']
 			}
         ],
