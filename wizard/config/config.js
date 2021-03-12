@@ -51,7 +51,7 @@ export default {
                  'permissionPolicies': [
                      {
                          'domain': 'integration',
-                         'entityName': 'embedded-client-app-interaction-widget',
+                         'entityName': 'examplePremiumApp',
                          'actionSet': ['*'],
                          'allowConditions': false
                      }
