@@ -123,7 +123,7 @@ function configure(logFunc, installedData, userId){
 							}
 						},
 						"monochromicIcon": {
-								"vector": "https://pci-pal.github.io/genesys-cloud-premium/PCIPal_Logo-lg_Main-blue.svg"
+                            "vector": "https://pci-pal.github.io/genesys-cloud-premium/PCIPal_Padlock-Orange.svg"
 						}
                 },
 				notes: '',
