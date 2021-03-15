@@ -81,7 +81,7 @@ export default {
 			
 			{
 			    'name': 'PCI Pal Interaction Widget',
-                'url': 'https://pcipal.cloud/',
+                'url': 'https://pci-pal.github.io/genesys-cloud-premium/pci_pal_widget_icon.html',
                 'groups': ['Users']
 			}
         ],
