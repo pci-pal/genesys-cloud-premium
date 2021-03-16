@@ -3,7 +3,7 @@
  */
 
 const clientId = '4e16b9b5-7630-4828-a5e5-73aef722f6e1';
-const redirectUri = 'https://crespino4.github.io/gc_interactionapp/interactionapp.html';
+const redirectUri = 'https://pci-pal.github.io/genesys-cloud-premium/widget_app/interactionapp.html';
 
 // PureCloud Platform API
 const platformClient = require('platformClient');
