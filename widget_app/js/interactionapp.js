@@ -185,7 +185,9 @@ function initializeApplication() {
         document.querySelector("#conversationEvent").innerHTML = JSON.stringify(data, null, 3);
 
         var customer = data.participants.find(p => {
-            p.purpose === "customer";
+            console.log("p = " + JSON.stringify(p));
+            console.log("p.purpose = " + p.purpose);
+            return p.purpose === "customer";
         });
 
         if (customer != undefined) {
