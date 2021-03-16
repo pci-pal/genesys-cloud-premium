@@ -20,7 +20,7 @@ var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
 var topicName = "";
 var me = null;
 var socket = null;
-var PCIPalCallId = null;
+var PCIPalSessionID = null;
 
 // Parse the query parameters to get the pcEnvironment variable so we can setup
 // the API client against the proper Genesys Cloud region.
@@ -191,9 +191,9 @@ function initializeApplication() {
         });
 
         if (customer != undefined) {
-            PCIPalCallId = customer.attributes.PCIPalCallID;
+            PCIPalSessionID = customer.attributes.PCIPalCallID;
 
-            console.log("PCIPalCallId set to: " + PCIPalCallId);
+            console.log("PCIPalCallId set to: " + PCIPalSessionID);
         } else {
             console.log("Customer participant not found");
         }
@@ -218,9 +218,9 @@ function initializeApplication() {
 }
 
 function takePayment() {
-    if (PCIPalCallId != null) {
-        // PCIPalCallID
-        var secure_link = "https://useast1.pcipal.cloud/session/208/launch/807/linkcall/" + PCIPalCallId + "/framed/";
+    if (PCIPalSessionID != null) {
+
+        var secure_link = "https://useast1.pcipal.cloud/session/208/launch/807/linkcall/" + PCIPalSessionID + "/framed/";
         console.log("Taking Payment URL is " + secure_link);
 
         window.location.href = secure_link;
