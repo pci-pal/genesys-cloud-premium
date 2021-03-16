@@ -20,7 +20,7 @@ var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
 var topicName = "";
 var me = null;
 var socket = null;
-var secure_link = "about:blank";
+var PCIPalCallId = null;
 
 // Parse the query parameters to get the pcEnvironment variable so we can setup
 // the API client against the proper Genesys Cloud region.
@@ -184,10 +184,19 @@ function initializeApplication() {
         console.log("Conversation details for " + appParams.pcConversationId + ": " + JSON.stringify(data));
         document.querySelector("#conversationEvent").innerHTML = JSON.stringify(data, null, 3);
 
-        secure_link = data.participants[0].attributes["Secure Link"];
-        console.log("Secure Link set to: " + secure_link);
+        var customer = data.participants.find(p => {
+            p.purpose === "customer";
+        });
 
-        document.querySelector("#payment").onclick(takePayment);
+        if (customer != undefined) {
+            PCIPalCallId = customer.attributes.PCIPalCallID;
+
+            console.log("PCIPalCallId set to: " + PCIPalCallId);
+        } else {
+            console.log("Customer participant not found");
+        }
+
+        document.getElementById("payment").onclick(takePayment);
 
         myClientApp.lifecycle.bootstrapped();
 
@@ -207,7 +216,15 @@ function initializeApplication() {
 }
 
 function takePayment() {
-    window.location.href = secure_link;
+    if (PCIPalCallId != null) {
+        // PCIPalCallID
+        var secure_link = "https://useast1.pcipal.cloud/session/208/launch/807/linkcall/" + PCIPalCallId + "/framed/";
+        console.log("Taking Payment URL is " + secure_link);
+
+        window.location.href = secure_link;
+    } else {
+        console.log("Can't build secure link because PCIPalCallId is null");
+    }
 }
 
 function parseAppParameters(queryString) {
