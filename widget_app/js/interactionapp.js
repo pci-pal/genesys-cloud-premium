@@ -198,7 +198,7 @@ function initializeApplication() {
             console.log("Customer participant not found");
         }
 
-        document.getElementById("payment").onclick(takePayment);
+        document.getElementById("payment").onclick = takePayment;
 
         myClientApp.lifecycle.bootstrapped();
 
