@@ -20,6 +20,7 @@ var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
 var topicName = "";
 var me = null;
 var socket = null;
+var secure_link = "about:blank";
 
 // Parse the query parameters to get the pcEnvironment variable so we can setup
 // the API client against the proper Genesys Cloud region.
@@ -183,6 +184,11 @@ function initializeApplication() {
         console.log("Conversation details for " + appParams.pcConversationId + ": " + JSON.stringify(data));
         document.querySelector("#conversationEvent").innerHTML = JSON.stringify(data, null, 3);
 
+        secure_link = data.participants[0].attributes["Secure Link"];
+        console.log("Secure Link set to: " + secure_link);
+
+        document.querySelector("#payment").onclick(takePayment);
+
         myClientApp.lifecycle.bootstrapped();
 
         myClientApp.alerting.showToastPopup(
@@ -198,6 +204,10 @@ function initializeApplication() {
         // Handle failure response
         console.log(err);
     });
+}
+
+function takePayment() {
+    window.location.href = secure_link;
 }
 
 function parseAppParameters(queryString) {
