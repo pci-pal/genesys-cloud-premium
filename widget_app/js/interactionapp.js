@@ -220,7 +220,9 @@ function initializeApplication() {
 function takePayment() {
     if (PCIPalSessionID != null) {
 
-        var secure_link = "https://useast1.pcipal.cloud/session/208/launch/807/linkcall/" + PCIPalSessionID + "/framed/";
+        // https://useast1.pcipal.cloud/session/208/view/bef20b9c-8451-4018-96b4-92749345ad00/framed
+
+        var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID + "/framed/";
         console.log("Taking Payment URL is " + secure_link);
 
         window.location.href = secure_link;
