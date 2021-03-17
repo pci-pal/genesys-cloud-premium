@@ -191,7 +191,7 @@ function initializeApplication() {
         });
 
         if (customer != undefined) {
-            PCIPalSessionID = customer.attributes.PCIPalCallID;
+            PCIPalSessionID = customer.attributes.PCIPalSessionID;
 
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
         } else {
