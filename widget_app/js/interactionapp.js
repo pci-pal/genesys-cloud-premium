@@ -225,7 +225,8 @@ function takePayment() {
         var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID + "/framed/";
         console.log("Taking Payment URL is " + secure_link);
 
-        window.location.href = secure_link;
+        //window.location.href = secure_link;
+        window.location.href = "https://www.publico.pt";
     } else {
         console.log("Can't build secure link because PCIPalCallId is null");
     }
