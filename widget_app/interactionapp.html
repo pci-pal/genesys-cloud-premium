@@ -14,232 +14,233 @@
         <script src="//sdk-cdn.mypurecloud.com/javascript/latest/purecloud-platform-client-v2.min.js"></script>
 
     </head>
-    <body>
-        <h1 id="title" width="100%" align="center">Interaction App</h1>
-        <p>User: <span id="username"></span></p>
-        <p>pcConversationId: <span id="pcConversationId"></span></p>
-        <p>pcEnvironment: <span id="pcEnvironment"></span></p>
-        <p>pcLangTag: <span id="pcLangTag"></span></p>
+	<body>
+		<h1 id="title" width="100%" align="center">Interaction App</h1>
+		<p>User: <span id="username"></span></p>
+		<p>pcConversationId: <span id="pcConversationId"></span></p>
+		<p>pcEnvironment: <span id="pcEnvironment"></span></p>
+		<p>pcLangTag: <span id="pcLangTag"></span></p>
 
-        <p width="100%">Conversation Event: </p>
-        <pre id="conversationEvent"></pre>
+		<p width="100%">Conversation Event: </p>
+		<pre id="conversationEvent"></pre>
 		<button id="payment">take a payment</button>
-<!--
-	<script>
+		<button id="somePage">show a page</button>
+		<!--
+		<script>
 
-        $( document ).ready(function() {
+			$( document ).ready(function() {
 
-            var clientId = 'b457d6c8-feb8-40f7-aff4-94d9cba953b5';
-            var redirectUri = 'https://crespino4.github.io/gc_interactionapp/interactionapp.html';
+				var clientId = 'b457d6c8-feb8-40f7-aff4-94d9cba953b5';
+				var redirectUri = 'https://crespino4.github.io/gc_interactionapp/interactionapp.html';
 
-            // PureCloud OAuth information
-            var platformClient = require('platformClient');
-            var	client = platformClient.ApiClient.instance;
+				// PureCloud OAuth information
+				var platformClient = require('platformClient');
+				var	client = platformClient.ApiClient.instance;
 
-            client.setPersistSettings(true, 'InteractionApp');
+				client.setPersistSettings(true, 'InteractionApp');
 
-            const integrationQueryString = window.location.search.substring(1);
-			var appParams = parseAppParameters(integrationQueryString);
-            if ( appParams.pcEnvironment !== null) {
-            	console.log("Initializing platform client for region: " + appParams.pcEnvironment);
-            	client.setEnvironment(appParams.pcEnvironment);
-            }
-
-            // API instances
-            var usersApi = new platformClient.UsersApi();
-            var notificationsApi = new platformClient.NotificationsApi();
-
-			var lifecycleStatusMessageTitle = 'Interaction App - Lifecycle Demo';
-			var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
-			var topicName = "";
-			var me = null;
-
-			// Perform Implicit Grant Authentication
-            client.loginImplicitGrant(clientId, redirectUri, { state: integrationQueryString })
-                .then((data) => {
-                	// User Authenticated
-                	console.log("Authenticated: " + JSON.stringify(data));
-
-					appParams = parseAppParameters(data.state);
-					document.querySelector("#pcConversationId").innerHTML = appParams.pcConversationId;
-					document.querySelector("#pcEnvironment").innerHTML = appParams.pcEnvironment;
-					document.querySelector("#pcLangTag").innerHTML = appParams.pcLangTag;
-
-					// Log Version and About using static properties
-					console.log("Client App Version: " + window.purecloud.apps.ClientApp.version);
-					console.log("Client App About: " + window.purecloud.apps.ClientApp.about());
-
-					// Create instance of Client App SDK
-					let myClientApp = new window.purecloud.apps.ClientApp({
-						pcEnvironment: appParams.pcEnvironment
-					});
-
-					//
-					// Bootstrap Listener
-					//
-					myClientApp.lifecycle.addBootstrapListener(() => {
-						logLifecycleEvent('App Lifecycle Event: bootstrap', true);
-
-						// Simulating bootstrap delay of 500ms
-						window.setTimeout(() => {
-							myClientApp.lifecycle.bootstrapped();
-
-							myClientApp.alerting.showToastPopup(
-								lifecycleStatusMessageTitle,
-								'Bootstrap Complete (500ms delay)', {
-									id: lifecycleStatusMessageId,
-									type: 'success'
-								}
-							);
-
-							logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
-						}, 500);
-					});
-
-					//
-					// Focus Listener
-					//
-					function onAppFocus () {
-						logLifecycleEvent('App Lifecycle Event: focus', true);
-
-						myClientApp.alerting.showToastPopup(
-							lifecycleStatusMessageTitle,
-							'App Focused', {
-								id: lifecycleStatusMessageId
-							}
-						);
-					}
-					myClientApp.lifecycle.addFocusListener(onAppFocus);
-
-					//
-					// Blur Listener
-					//
-					function onAppBlur () {
-						logLifecycleEvent('App Lifecycle Event: blur', true);
-
-						myClientApp.alerting.showToastPopup(
-							lifecycleStatusMessageTitle,
-							'App Blurred', {
-								id: lifecycleStatusMessageId
-							}
-						);
-					}
-					myClientApp.lifecycle.addBlurListener(onAppBlur);
-
-					//
-					// Stop Listener
-					//
-					myClientApp.lifecycle.addStopListener(() => {
-						logLifecycleEvent('App Lifecycle Event: stop', true);
-
-						// Clean up other, persistent listeners
-						myClientApp.lifecycle.removeFocusListener(onAppFocus);
-						myClientApp.lifecycle.removeBlurListener(onAppBlur);
-
-						// Simulating delay of 500ms
-						window.setTimeout(() => {
-							myClientApp.lifecycle.stopped();
-
-							myClientApp.alerting.showToastPopup(
-								lifecycleStatusMessageTitle,
-								'App Stopped (500ms delay)', {
-									id: lifecycleStatusMessageId,
-									type: 'error',
-									showCloseButton: true
-								}
-							);
-
-							logLifecycleEvent('Notified PC of Successful App Stop', false);
-						}, 500);
-					});
-
-            		client.setEnvironment(appParams.pcEnvironment);
-
-					// Log the PureCloud environment (i.e. AWS Region)
-					console.log("PureCloud API Client Environment: " + client.environment);
-					console.log("PureCloud ClientApp Environment: " + myClientApp.pcEnvironment);
-
-                    // Make request to GET /api/v2/users/me?expand=presence
-                    return usersApi.getUsersMe({ 'expand': ["presence","authorization"] });
-                })
-                .then((userMe) => {
-                	// Me Response
-                    document.querySelector("#welcome").innerHTML = "Welcome " + userMe.name;
-
-					me = userMe;
-
-                    // Create a Notifications Channel
-                    return notificationsApi.postNotificationsChannels();
-                }).then((channel) => {
-                	// Channel Created
-
-                	// Setup WebSocket on Channel
-                    var socket = new WebSocket(channel.connectUri);
-                    socket.onmessage = onSocketMessage;
-
-					topicName = `v2.users.${me.id}.conversations`;
-
-                    // Subscribe to conversation events in the queue.
-                    let topic = [{"id": topicName}];
-                    return notificationsApi.postNotificationsChannelSubscriptions(channel.id, topic);
-                }).catch((err) => {
-                    // Handle failure response
-                    console.log(err);
-                });
-
-            // Handler for every Websocket message
-            function onSocketMessage(event){
-            	console.log("WebSocket Event Received: " + event.data);
-                let data = JSON.parse(event.data);
-                let topic = data.topicName;
-                let eventBody = data.eventBody;
-
-                console.log("Notification: Topic = " + topic);
-                console.log("Notification: Body = " + eventBody);
-
-				if ( topic == topicName ) {
-	                // Do something here
-	            }
-            };
-
-            function logLifecycleEvent(logText, incommingEvent) {
-                console.log(logText)
-            };
-
-			function parseAppParameters(queryString) {
-				console.log("Interaction App Query String: " + queryString);
-
-				let appParams = {
-									pcEnvironment: null,
-									pcLangTag: null,
-									pcConversationId: null
-								};
-
-
-				if ( queryString.length != 0 ) {
-					const pairs = queryString.split('&');
-
-					for (var i = 0; i < pairs.length; i++)
-					{
-						var currParam = pairs[i].split('=');
-
-						if(currParam[0] === 'pcLangTag') {
-							appParams.pcLangTag = currParam[1];
-						} else if(currParam[0] === 'pcEnvironment') {
-							appParams.pcEnvironment = currParam[1];
-						} else if(currParam[0] === 'pcConversationId') {
-							appParams.pcConversationId = currParam[1];
-						}
-					}
+				const integrationQueryString = window.location.search.substring(1);
+				var appParams = parseAppParameters(integrationQueryString);
+				if ( appParams.pcEnvironment !== null) {
+					console.log("Initializing platform client for region: " + appParams.pcEnvironment);
+					client.setEnvironment(appParams.pcEnvironment);
 				}
 
-				return appParams;
-			};
+				// API instances
+				var usersApi = new platformClient.UsersApi();
+				var notificationsApi = new platformClient.NotificationsApi();
 
-        });
+				var lifecycleStatusMessageTitle = 'Interaction App - Lifecycle Demo';
+				var lifecycleStatusMessageId = 'lifecycleDemo-statusMsg';
+				var topicName = "";
+				var me = null;
 
-    </script>
--->
-    <script src="js/interactionapp.js"></script>
-    </body>
+				// Perform Implicit Grant Authentication
+				client.loginImplicitGrant(clientId, redirectUri, { state: integrationQueryString })
+					.then((data) => {
+						// User Authenticated
+						console.log("Authenticated: " + JSON.stringify(data));
+
+						appParams = parseAppParameters(data.state);
+						document.querySelector("#pcConversationId").innerHTML = appParams.pcConversationId;
+						document.querySelector("#pcEnvironment").innerHTML = appParams.pcEnvironment;
+						document.querySelector("#pcLangTag").innerHTML = appParams.pcLangTag;
+
+						// Log Version and About using static properties
+						console.log("Client App Version: " + window.purecloud.apps.ClientApp.version);
+						console.log("Client App About: " + window.purecloud.apps.ClientApp.about());
+
+						// Create instance of Client App SDK
+						let myClientApp = new window.purecloud.apps.ClientApp({
+							pcEnvironment: appParams.pcEnvironment
+						});
+
+						//
+						// Bootstrap Listener
+						//
+						myClientApp.lifecycle.addBootstrapListener(() => {
+							logLifecycleEvent('App Lifecycle Event: bootstrap', true);
+
+							// Simulating bootstrap delay of 500ms
+							window.setTimeout(() => {
+								myClientApp.lifecycle.bootstrapped();
+
+								myClientApp.alerting.showToastPopup(
+									lifecycleStatusMessageTitle,
+									'Bootstrap Complete (500ms delay)', {
+										id: lifecycleStatusMessageId,
+										type: 'success'
+									}
+								);
+
+								logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
+							}, 500);
+						});
+
+						//
+						// Focus Listener
+						//
+						function onAppFocus () {
+							logLifecycleEvent('App Lifecycle Event: focus', true);
+
+							myClientApp.alerting.showToastPopup(
+								lifecycleStatusMessageTitle,
+								'App Focused', {
+									id: lifecycleStatusMessageId
+								}
+							);
+						}
+						myClientApp.lifecycle.addFocusListener(onAppFocus);
+
+						//
+						// Blur Listener
+						//
+						function onAppBlur () {
+							logLifecycleEvent('App Lifecycle Event: blur', true);
+
+							myClientApp.alerting.showToastPopup(
+								lifecycleStatusMessageTitle,
+								'App Blurred', {
+									id: lifecycleStatusMessageId
+								}
+							);
+						}
+						myClientApp.lifecycle.addBlurListener(onAppBlur);
+
+						//
+						// Stop Listener
+						//
+						myClientApp.lifecycle.addStopListener(() => {
+							logLifecycleEvent('App Lifecycle Event: stop', true);
+
+							// Clean up other, persistent listeners
+							myClientApp.lifecycle.removeFocusListener(onAppFocus);
+							myClientApp.lifecycle.removeBlurListener(onAppBlur);
+
+							// Simulating delay of 500ms
+							window.setTimeout(() => {
+								myClientApp.lifecycle.stopped();
+
+								myClientApp.alerting.showToastPopup(
+									lifecycleStatusMessageTitle,
+									'App Stopped (500ms delay)', {
+										id: lifecycleStatusMessageId,
+										type: 'error',
+										showCloseButton: true
+									}
+								);
+
+								logLifecycleEvent('Notified PC of Successful App Stop', false);
+							}, 500);
+						});
+
+						client.setEnvironment(appParams.pcEnvironment);
+
+						// Log the PureCloud environment (i.e. AWS Region)
+						console.log("PureCloud API Client Environment: " + client.environment);
+						console.log("PureCloud ClientApp Environment: " + myClientApp.pcEnvironment);
+
+						// Make request to GET /api/v2/users/me?expand=presence
+						return usersApi.getUsersMe({ 'expand': ["presence","authorization"] });
+					})
+					.then((userMe) => {
+						// Me Response
+						document.querySelector("#welcome").innerHTML = "Welcome " + userMe.name;
+
+						me = userMe;
+
+						// Create a Notifications Channel
+						return notificationsApi.postNotificationsChannels();
+					}).then((channel) => {
+						// Channel Created
+
+						// Setup WebSocket on Channel
+						var socket = new WebSocket(channel.connectUri);
+						socket.onmessage = onSocketMessage;
+
+						topicName = `v2.users.${me.id}.conversations`;
+
+						// Subscribe to conversation events in the queue.
+						let topic = [{"id": topicName}];
+						return notificationsApi.postNotificationsChannelSubscriptions(channel.id, topic);
+					}).catch((err) => {
+						// Handle failure response
+						console.log(err);
+					});
+
+				// Handler for every Websocket message
+				function onSocketMessage(event){
+					console.log("WebSocket Event Received: " + event.data);
+					let data = JSON.parse(event.data);
+					let topic = data.topicName;
+					let eventBody = data.eventBody;
+
+					console.log("Notification: Topic = " + topic);
+					console.log("Notification: Body = " + eventBody);
+
+					if ( topic == topicName ) {
+						// Do something here
+					}
+				};
+
+				function logLifecycleEvent(logText, incommingEvent) {
+					console.log(logText)
+				};
+
+				function parseAppParameters(queryString) {
+					console.log("Interaction App Query String: " + queryString);
+
+					let appParams = {
+										pcEnvironment: null,
+										pcLangTag: null,
+										pcConversationId: null
+									};
+
+
+					if ( queryString.length != 0 ) {
+						const pairs = queryString.split('&');
+
+						for (var i = 0; i < pairs.length; i++)
+						{
+							var currParam = pairs[i].split('=');
+
+							if(currParam[0] === 'pcLangTag') {
+								appParams.pcLangTag = currParam[1];
+							} else if(currParam[0] === 'pcEnvironment') {
+								appParams.pcEnvironment = currParam[1];
+							} else if(currParam[0] === 'pcConversationId') {
+								appParams.pcConversationId = currParam[1];
+							}
+						}
+					}
+
+					return appParams;
+				};
+
+			});
+
+		</script>
+	-->
+		<script src="js/interactionapp.js"></script>
+	</body>
 </html>

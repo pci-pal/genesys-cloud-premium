@@ -199,6 +199,7 @@ function initializeApplication() {
         }
 
         document.getElementById("payment").onclick = takePayment;
+        document.getElementById("somePage").onclick = showSomePage;
 
         myClientApp.lifecycle.bootstrapped();
 
@@ -225,11 +226,18 @@ function takePayment() {
         var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID + "/framed/";
         console.log("Taking Payment URL is " + secure_link);
 
-        //window.location.href = secure_link;
-        window.location.href = "https://www.publico.pt";
+        window.location.href = secure_link;
+        
     } else {
         console.log("Can't build secure link because PCIPalCallId is null");
     }
+}
+
+
+function showSomePage() {
+        
+        window.location.href = "https://www.publico.pt";
+    
 }
 
 function parseAppParameters(queryString) {
