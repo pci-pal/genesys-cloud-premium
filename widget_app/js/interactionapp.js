@@ -22,6 +22,7 @@ var me = null;
 var socket = null;
 var PCIPalSessionID = null;
 var PCIPalBearerToken = null;
+var PCIPalRefreshToken = null;
 
 // Parse the query parameters to get the pcEnvironment variable so we can setup
 // the API client against the proper Genesys Cloud region.
@@ -194,6 +195,7 @@ function initializeApplication() {
         if (customer != undefined) {
             PCIPalSessionID = customer.attributes.PCIPalSessionID;
             PCIPalBearerToken = customer.attributes.bearer_token;
+            PCIPalRefreshToken = customer.attributes.refresh_token;
 
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
             console.log("PCIPalBearerToken set to: " + PCIPalBearerToken);
@@ -234,20 +236,33 @@ function takePayment() {
         form.method = "post";
         form.action = secure_link;
 
-        const hiddenField = document.createElement("input");
+        const hiddenFieldBearer = document.createElement("input");
 
-        hiddenField.type = "hidden";
-        hiddenField.name = "X-BEARER-TOKEN";
-        hiddenField.value = PCIPalBearerToken;
-        form.appendChild(hiddenField);
+        hiddenFieldBearer.type = "hidden";
+        hiddenFieldBearer.name = "X-BEARER-TOKEN";
+        hiddenFieldBearer.value = PCIPalBearerToken;
+        form.appendChild(hiddenFieldBearer);
+
+        const hiddenFieldRefresh = document.createElement("input");
+
+        hiddenFieldRefresh.type = "hidden";
+        hiddenFieldRefresh.name = "X-REFRESH-TOKEN";
+        hiddenFieldRefresh.value = PCIPalRefreshToken;
+        form.appendChild(hiddenFieldRefresh);
+
 
         document.body.appendChild(form);
-        form.submit();
+
+        document.getElementById(pcipal_flow).
+
+        //form.submit();
+
+
 
         //window.location.href = secure_link;
         
     } else {
-        console.log("Can't build secure link because PCIPalCallId is null");
+        console.log("Can't build secure link because PCIPalSessionID is null");
     }
 }
 
