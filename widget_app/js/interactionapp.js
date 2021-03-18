@@ -229,7 +229,7 @@ function takePayment() {
 
         // https://useast1.pcipal.cloud/session/208/view/bef20b9c-8451-4018-96b4-92749345ad00/framed
 
-        var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID + "/framed/";
+        var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID;  // + "/framed/";
         console.log("Taking Payment URL is: " + secure_link);
 
         const form = document.createElement("form");
