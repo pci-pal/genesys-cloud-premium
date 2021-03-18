@@ -250,14 +250,9 @@ function takePayment() {
         hiddenFieldRefresh.value = PCIPalRefreshToken;
         form.appendChild(hiddenFieldRefresh);
 
-
         document.body.appendChild(form);
 
-        document.getElementById(pcipal_flow).
-
         form.submit();
-
-
 
         //window.location.href = secure_link;
         
