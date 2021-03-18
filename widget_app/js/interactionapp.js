@@ -21,6 +21,7 @@ var topicName = "";
 var me = null;
 var socket = null;
 var PCIPalSessionID = null;
+var PCIPalBearerToken = null;
 
 // Parse the query parameters to get the pcEnvironment variable so we can setup
 // the API client against the proper Genesys Cloud region.
@@ -192,14 +193,17 @@ function initializeApplication() {
 
         if (customer != undefined) {
             PCIPalSessionID = customer.attributes.PCIPalSessionID;
+            PCIPalBearerToken = customer.attributes.bearer_token;
 
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
+            console.log("PCIPalBearerToken set to: " + PCIPalBearerToken);
+
+            
         } else {
             console.log("Customer participant not found");
         }
 
         document.getElementById("payment").onclick = takePayment;
-        document.getElementById("somePage").onclick = showSomePage;
 
         myClientApp.lifecycle.bootstrapped();
 
@@ -224,9 +228,23 @@ function takePayment() {
         // https://useast1.pcipal.cloud/session/208/view/bef20b9c-8451-4018-96b4-92749345ad00/framed
 
         var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID + "/framed/";
-        console.log("Taking Payment URL is " + secure_link);
+        console.log("Taking Payment URL is: " + secure_link);
 
-        window.location.href = secure_link;
+        const form = document.createElement("form");
+        form.method = "post";
+        form.action = secure_link;
+
+        const hiddenField = document.createElement("input");
+
+        hiddenField.type = "hidden";
+        hiddenField.name = "X-BEARER-TOKEN";
+        hiddenField.value = PCIPalBearerToken;
+        form.appendChild(hiddenField);
+
+        document.body.appendChild(form);
+        form.submit();
+
+        //window.location.href = secure_link;
         
     } else {
         console.log("Can't build secure link because PCIPalCallId is null");
@@ -234,11 +252,6 @@ function takePayment() {
 }
 
 
-function showSomePage() {
-        
-        window.location.href = "https://www.publico.pt";
-    
-}
 
 function parseAppParameters(queryString) {
     console.log("Interaction App Query String: " + queryString);
