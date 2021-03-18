@@ -255,7 +255,7 @@ function takePayment() {
 
         document.getElementById(pcipal_flow).
 
-        //form.submit();
+        form.submit();
 
 
 
