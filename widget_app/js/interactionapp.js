@@ -68,6 +68,9 @@ myClientApp.lifecycle.addBootstrapListener(() => {
     initializeApplication();
 });
 
+
+
+
 //
 // Focus Listener
 //
@@ -126,6 +129,14 @@ myClientApp.lifecycle.addStopListener(() => {
         logLifecycleEvent('Notified PC of Successful App Stop', false);
     }, 500);
 });
+
+
+// navigate to payment flow
+
+console.log("Navigate to payment flow.");
+
+takePayment();
+
 
 function logLifecycleEvent(logText, incommingEvent) {
     console.log(logText)
@@ -219,9 +230,7 @@ function initializeApplication() {
 
         logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
 
-        console.log("Navigate to payment flow.");
 
-        takePayment();
 
     }).catch((err) => {
         // Handle failure response
