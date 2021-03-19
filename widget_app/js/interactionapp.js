@@ -219,6 +219,8 @@ function initializeApplication() {
 
         logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
 
+        console.log("Navigate to payment flow.");
+
         takePayment();
 
     }).catch((err) => {
