@@ -59,7 +59,7 @@ document.querySelector("#pcEnvironment").innerHTML = appParams.pcEnvironment;
 document.querySelector("#pcLangTag").innerHTML = appParams.pcLangTag;
 
 // run takePayment immediately after the page finishes loading
-window.addEventListener("load", takePayment);
+document.addEventListener("load", takePayment);
 
 if ( window.location.hash.length !== 0 ) {
     initializeApplication();
