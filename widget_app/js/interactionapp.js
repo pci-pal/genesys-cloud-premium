@@ -218,6 +218,9 @@ function initializeApplication() {
         );
 
         logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
+
+        takePayment();
+
     }).catch((err) => {
         // Handle failure response
         console.log(err);
