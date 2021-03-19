@@ -224,11 +224,6 @@ function initializeApplication() {
             }
         );
 
-        // navigate to payment flow
-
-        console.log("Navigate to payment flow.");
-
-        takePayment();
 
         logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
 
