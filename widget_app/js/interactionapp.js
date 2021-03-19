@@ -68,11 +68,7 @@ myClientApp.lifecycle.addBootstrapListener(() => {
     initializeApplication();
 });
 
-// navigate to payment flow
 
-console.log("Navigate to payment flow.");
-
-takePayment();
 
 
 //
@@ -227,6 +223,12 @@ function initializeApplication() {
                 type: 'success'
             }
         );
+
+        // navigate to payment flow
+
+        console.log("Navigate to payment flow.");
+
+        takePayment();
 
         logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
 
