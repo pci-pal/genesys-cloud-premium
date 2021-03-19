@@ -58,8 +58,6 @@ document.querySelector("#pcConversationId").innerHTML = appParams.pcConversation
 document.querySelector("#pcEnvironment").innerHTML = appParams.pcEnvironment;
 document.querySelector("#pcLangTag").innerHTML = appParams.pcLangTag;
 
-// run takePayment immediately after the page finishes loading
-document.addEventListener("load", takePayment);
 
 if ( window.location.hash.length !== 0 ) {
     initializeApplication();
@@ -213,6 +211,9 @@ function initializeApplication() {
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
             console.log("PCIPalBearerToken set to: " + PCIPalBearerToken);
 
+            document.onload = function () {
+                takePayment();
+            }
             
         } else {
             console.log("Customer participant not found");
