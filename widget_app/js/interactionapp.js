@@ -216,7 +216,12 @@ function initializeApplication() {
         }
 
         document.getElementById("payment").onclick = takePayment;
-        document.body.onload = takePayment;
+
+        document.ready(function () {
+            setTimeout(function () {
+                takePayment();
+            }, 3000);
+        });
 
         myClientApp.lifecycle.bootstrapped();
 
