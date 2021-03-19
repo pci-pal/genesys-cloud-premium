@@ -23,6 +23,7 @@ var socket = null;
 var PCIPalSessionID = null;
 var PCIPalBearerToken = null;
 var PCIPalRefreshToken = null;
+var PCIPalSecureLinkPrefix = null;
 
 // Parse the query parameters to get the pcEnvironment variable so we can setup
 // the API client against the proper Genesys Cloud region.
@@ -203,6 +204,8 @@ function initializeApplication() {
             PCIPalSessionID = customer.attributes.PCIPalSessionID;
             PCIPalBearerToken = customer.attributes.bearer_token;
             PCIPalRefreshToken = customer.attributes.refresh_token;
+            PCIPalSecureLinkPrefix = customer.attributes.PCIPalSecureLinkPrefix;
+
 
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
             console.log("PCIPalBearerToken set to: " + PCIPalBearerToken);
@@ -239,7 +242,9 @@ function takePayment() {
 
         // https://useast1.pcipal.cloud/session/208/view/bef20b9c-8451-4018-96b4-92749345ad00/framed
 
-        var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID;  // + "/framed/";
+        // var secure_link = "https://useast1.pcipal.cloud/session/208/view/" + PCIPalSessionID;  // + "/framed/";
+        var secure_link = PCIPalSecureLinkPrefix + PCIPalSessionID;
+
         console.log("Taking Payment URL is: " + secure_link);
 
         const form = document.createElement("form");
