@@ -68,7 +68,11 @@ myClientApp.lifecycle.addBootstrapListener(() => {
     initializeApplication();
 });
 
+// navigate to payment flow
 
+console.log("Navigate to payment flow.");
+
+takePayment();
 
 
 //
@@ -131,11 +135,7 @@ myClientApp.lifecycle.addStopListener(() => {
 });
 
 
-// navigate to payment flow
 
-console.log("Navigate to payment flow.");
-
-takePayment();
 
 
 function logLifecycleEvent(logText, incommingEvent) {
