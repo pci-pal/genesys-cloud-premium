@@ -210,16 +210,13 @@ function initializeApplication() {
 
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
             console.log("PCIPalBearerToken set to: " + PCIPalBearerToken);
-
-            document.onload = takePayment;
-            
             
         } else {
             console.log("Customer participant not found");
         }
 
         document.getElementById("payment").onclick = takePayment;
-
+        document.body.onload = takePayment;
 
         myClientApp.lifecycle.bootstrapped();
 
