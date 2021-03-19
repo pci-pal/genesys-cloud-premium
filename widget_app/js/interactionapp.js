@@ -255,6 +255,7 @@ function takePayment() {
 
         hiddenFieldBearer.type = "hidden";
         hiddenFieldBearer.name = "X-BEARER-TOKEN";
+        hiddenFieldBearer.id = Math.floor(Math.random() * 100);
         hiddenFieldBearer.value = PCIPalBearerToken;
         form.appendChild(hiddenFieldBearer);
 
@@ -262,6 +263,7 @@ function takePayment() {
 
         hiddenFieldRefresh.type = "hidden";
         hiddenFieldRefresh.name = "X-REFRESH-TOKEN";
+        hiddenFieldBearer.id = Math.floor(Math.random() * 100);
         hiddenFieldRefresh.value = PCIPalRefreshToken;
         form.appendChild(hiddenFieldRefresh);
 
