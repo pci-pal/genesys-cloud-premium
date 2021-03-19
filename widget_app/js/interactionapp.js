@@ -211,9 +211,8 @@ function initializeApplication() {
             console.log("PCIPalCallId set to: " + PCIPalSessionID);
             console.log("PCIPalBearerToken set to: " + PCIPalBearerToken);
 
-            document.onload = function () {
-                takePayment();
-            }
+            document.onload = takePayment;
+            
             
         } else {
             console.log("Customer participant not found");
