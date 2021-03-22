@@ -15,14 +15,25 @@
 
     </head>
 	<body>
-		<h1 id="title" width="100%" align="center">Interaction App</h1>
-		<p>User: <span id="username"></span></p>
-		<p>pcConversationId: <span id="pcConversationId"></span></p>
-		<p>pcEnvironment: <span id="pcEnvironment"></span></p>
-		<p>pcLangTag: <span id="pcLangTag"></span></p>
+
+		<p style="text-align: center;">
+			<span style="font-family: helvetica;">
+				<img src="https://pci-pal.github.io/genesys-cloud-premium/PCIPal_Logo-lg_Main-on-white_small.jpg" alt="" width="250" />
+				<br />
+				<button style="width:200px" id="payment">click to take a payment</button>
+			</span>
+		</p>
 
 
-		<button id="payment">take a payment</button>
+		<h1 hidden id="title" width="100%" align="center">Interaction App</h1>
+		<p hidden>User: <span id="username"></span></p>
+		<p hidden>pcConversationId: <span id="pcConversationId"></span></p>
+		<p hidden>pcEnvironment: <span id="pcEnvironment"></span></p>
+		<p hidden>pcLangTag: <span id="pcLangTag"></span></p>
+
+		
+
+		
 
 		<p hidden width="100%">Conversation Event: </p>
 		<pre hidden id="conversationEvent"></pre>
