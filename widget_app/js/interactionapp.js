@@ -220,13 +220,13 @@ function initializeApplication() {
 
         myClientApp.lifecycle.bootstrapped();
 
-        myClientApp.alerting.showToastPopup(
-            lifecycleStatusMessageTitle,
-            'Bootstrap Complete (500ms delay)', {
-                id: lifecycleStatusMessageId,
-                type: 'success'
-            }
-        );
+        //myClientApp.alerting.showToastPopup(
+        //    lifecycleStatusMessageTitle,
+        //    'Bootstrap Complete (500ms delay)', {
+        //        id: lifecycleStatusMessageId,
+        //        type: 'success'
+        //    }
+        //);
 
 
         logLifecycleEvent('Notified PC of Successful App Bootstrap', false);
